@@ -54,8 +54,10 @@ def random_choice():
 
 
 def check_for_win():
-    if (board[1-1] == board[2-1] == board[3-1]) or (board[4-1] == board[5-1] == board[6-1]) or (board[7-1] == board[8-1] == board[9-1]) or (board[1-1] == board[4-1] == board[7-1]) or (board[2-1] == board[5-1] == board[8-1]) or (board[3-1] == board[6-1] == board[9-1]) or (board[1-1] == board[5-1] == board[9-1]) or (board[7-1] == board[5-1] == board[3-1]):
-        return True
+    if (board[0] == board[1] == board[2] == '|X|') or (board[3] == board[4] == board[5] == '|X|') or (board[6] == board[7] == board[8] == '|X|') or (board[0] == board[3] == board[6] == '|X|') or (board[1] == board[4] == board[7] == '|X|') or (board[2] == board[5] == board[8] == '|X|') or (board[0] == board[4] == board[8] == '|X|') or (board[6] == board[4] == board[2] == '|X|'):
+        return 'X'
+    elif (board[0] == board[1] == board[2] == '|O|') or (board[3] == board[4] == board[5] == '|O|') or (board[6] == board[7] == board[8] == '|O|') or (board[0] == board[3] == board[6] == '|O|') or (board[1] == board[4] == board[7] == '|O|') or (board[2] == board[5] == board[8] == '|O|') or (board[0] == board[4] == board[8] == '|O|') or (board[6] == board[4] == board[2] == '|O|'):
+        return 'O'
     else:
         if moves == 9:
             return 'Draw'
@@ -84,8 +86,11 @@ while True:
     bot_turn = not bot_turn
     moves += 1
 
-    if check_for_win() == True:
-        print('Victoryyy')
+    if check_for_win() == player_char:
+        print('You won')
+        break
+    elif check_for_win() == bot_char:
+        print('Bot won')
         break
     elif check_for_win() == 'Draw':
         print('Draw')
