@@ -43,13 +43,27 @@ def check_for_win(board:list, moves:int) -> str:
     Function checks if there is a winner or a draw
     If moves is equal to 9 its draw
     """
-    if (board[0] == board[1] == board[2] == '|X|') or (board[3] == board[4] == board[5] == '|X|') or (board[6] == board[7] == board[8] == '|X|') or (board[0] == board[3] == board[6] == '|X|') or (board[1] == board[4] == board[7] == '|X|') or (board[2] == board[5] == board[8] == '|X|') or (board[0] == board[4] == board[8] == '|X|') or (board[6] == board[4] == board[2] == '|X|'):
+    if (board[0] == board[1] == board[2] == '|X|') or \
+       (board[3] == board[4] == board[5] == '|X|') or \
+       (board[6] == board[7] == board[8] == '|X|') or \
+       (board[0] == board[3] == board[6] == '|X|') or \
+       (board[1] == board[4] == board[7] == '|X|') or \
+       (board[2] == board[5] == board[8] == '|X|') or \
+       (board[0] == board[4] == board[8] == '|X|') or \
+       (board[6] == board[4] == board[2] == '|X|'):
         return 'X'
-    elif (board[0] == board[1] == board[2] == '|O|') or (board[3] == board[4] == board[5] == '|O|') or (board[6] == board[7] == board[8] == '|O|') or (board[0] == board[3] == board[6] == '|O|') or (board[1] == board[4] == board[7] == '|O|') or (board[2] == board[5] == board[8] == '|O|') or (board[0] == board[4] == board[8] == '|O|') or (board[6] == board[4] == board[2] == '|O|'):
+    elif (board[0] == board[1] == board[2] == '|O|') or \
+         (board[3] == board[4] == board[5] == '|O|') or \
+         (board[6] == board[7] == board[8] == '|O|') or \
+         (board[0] == board[3] == board[6] == '|O|') or \
+         (board[1] == board[4] == board[7] == '|O|') or \
+         (board[2] == board[5] == board[8] == '|O|') or \
+         (board[0] == board[4] == board[8] == '|O|') or \
+         (board[6] == board[4] == board[2] == '|O|'):
         return 'O'
     else:
         if moves == 9:
-            return 'Its a draw'
+            return 'draw'
 
 # Main game loop
 def main():
@@ -114,8 +128,8 @@ def main():
         elif winner == bot_char:
             print('Bot won')
             break
-        elif winner == 'Draw':
-            print('Draw')
+        elif winner == 'draw':
+            print('Its a draw')
             break
 
 if __name__ == '__main__':
