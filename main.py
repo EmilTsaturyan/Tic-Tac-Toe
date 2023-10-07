@@ -1,38 +1,8 @@
-# TIC TAC TOE
 import random
 import os
 
-print(f"{'-' * 20}Tic-Tac-Toe{'-' * 20}\nX or O 👇")
-
-bot_turn = False
-player_turn = False
-
-player_char = ''
-bot_char = ''
-
-moves = 0
-
-choose = input('->: ').upper()
-if choose == 'X':
-    player_turn = True
-    player_char = 'X'
-    bot_char = 'O'
-elif choose == 'O':
-    bot_turn = True
-    player_char = 'O'
-    bot_char = 'X'
-else:
-    print(f'Choose the right option x or y not {choose}')
-
-coords = [i for i in range(1, 10)]
-board = ['|1|', '|2|', '|3|','|4|', '|5|', '|6|','|7|', '|8|', '|9|']
-
-
-def check(num):
-    if num not in coords:
-        return False
-    return True
-
+def check(num, coords):
+    return num in coords
 
 def draw_board(board):
     os.system('cls')
@@ -41,22 +11,16 @@ def draw_board(board):
             print()
         print(board[i], end='')
     print()
-            
-def update_board(board, num, current_player='O'):
-    if current_player == 'X':
-        board[num - 1] = '|X|'
-    else:
-        board[num - 1] = '|O|'
 
+def update_board(board, num, current_player='O', coords = []):
+    player_marker = '|X|' if current_player == 'X' else '|O|'
+    board[num - 1] = player_marker
     coords.remove(num)
 
+def random_choice(coords):
+    return random.choice(coords)
 
-def random_choice():
-    random_coord = random.choice(coords)
-    return random_coord
-
-
-def check_for_win():
+def check_for_win(board, moves):
     if (board[0] == board[1] == board[2] == '|X|') or (board[3] == board[4] == board[5] == '|X|') or (board[6] == board[7] == board[8] == '|X|') or (board[0] == board[3] == board[6] == '|X|') or (board[1] == board[4] == board[7] == '|X|') or (board[2] == board[5] == board[8] == '|X|') or (board[0] == board[4] == board[8] == '|X|') or (board[6] == board[4] == board[2] == '|X|'):
         return 'X'
     elif (board[0] == board[1] == board[2] == '|O|') or (board[3] == board[4] == board[5] == '|O|') or (board[6] == board[7] == board[8] == '|O|') or (board[0] == board[3] == board[6] == '|O|') or (board[1] == board[4] == board[7] == '|O|') or (board[2] == board[5] == board[8] == '|O|') or (board[0] == board[4] == board[8] == '|O|') or (board[6] == board[4] == board[2] == '|O|'):
@@ -67,34 +31,63 @@ def check_for_win():
         else:
             return False
 
+def main():
+    print(f"{'-' * 20}Tic-Tac-Toe{'-' * 20}\nX or O 👇")
 
+    bot_turn = False
+    player_turn = False
 
-while True:
-    if bot_turn:
-        if check(random_choice()):
-            update_board(board, random_choice(), bot_char)
-            print("Bot's move")
-            draw_board(board)
-        else:
-            break
+    player_char = ''
+    bot_char = ''
+
+    moves = 0
+
+    choose = input('->: ').upper()
+    if choose == 'X':
+        player_turn = True
+        player_char = 'X'
+        bot_char = 'O'
+    elif choose == 'O':
+        bot_turn = True
+        player_char = 'O'
+        bot_char = 'X'
     else:
-        cord_choose = int(input('Your turn: '))
-        if check(cord_choose):
-            update_board(board, cord_choose, player_char)
-            draw_board(board)
+        print(f'Choose the right option x or y not {choose}')
+        exit()
+
+    coords = [i for i in range(1, 10)]
+    board = ['|1|', '|2|', '|3|', '|4|', '|5|', '|6|', '|7|', '|8|', '|9|']
+
+    while True:
+        if bot_turn:
+            if check(random_choice(coords), coords):
+                update_board(board, random_choice(coords), bot_char, coords)
+                print("Bot's move")
+                draw_board(board)
+            else:
+                break
         else:
+            cord_choose = int(input('Your turn: '))
+            if check(cord_choose, coords):
+                update_board(board, cord_choose, player_char, coords)
+                draw_board(board)
+            else:
+                break
+
+        player_turn = not player_turn
+        bot_turn = not bot_turn
+        moves += 1
+
+        winner = check_for_win(board, moves)
+        if winner == player_char:
+            print('You won')
+            break
+        elif winner == bot_char:
+            print('Bot won')
+            break
+        elif winner == 'Draw':
+            print('Draw')
             break
 
-    player_turn = not player_turn
-    bot_turn = not bot_turn
-    moves += 1
-
-    if check_for_win() == player_char:
-        print('You won')
-        break
-    elif check_for_win() == bot_char:
-        print('Bot won')
-        break
-    elif check_for_win() == 'Draw':
-        print('Draw')
-        break
+if __name__ == '__main__':
+    main()
