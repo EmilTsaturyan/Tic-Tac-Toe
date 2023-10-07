@@ -1,6 +1,6 @@
 # TIC TAC TOE
-
 import random
+import os
 
 print(f"{'-' * 20}Tic-Tac-Toe{'-' * 20}\nX or O 👇")
 
@@ -21,6 +21,8 @@ elif choose == 'O':
     bot_turn = True
     player_char = 'O'
     bot_char = 'X'
+else:
+    print(f'Choose the right option x or y not {choose}')
 
 coords = [i for i in range(1, 10)]
 board = ['|1|', '|2|', '|3|','|4|', '|5|', '|6|','|7|', '|8|', '|9|']
@@ -33,6 +35,7 @@ def check(num):
 
 
 def draw_board(board):
+    os.system('cls')
     for i in range(len(board)):
         if i == 3 or i == 6:
             print()
